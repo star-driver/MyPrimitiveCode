@@ -1,32 +1,80 @@
-# Prerequisites
-*.d
+// Tree
+//
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+#include "stdafx.h"
+#include "iostream"
+using namespace std;
 
-# Precompiled Headers
-*.gch
-*.pch
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
+class BTree {
+public:
+	typedef struct node {
+		node * lchild, *rchild;
+		char data;
+	}node;
+	BTree();
+	void preorder() { preorder(root); }
+	void inorder() { inorder(root); }
+	void postorder() { postorder(root); }
+	void CreateBTree() { CreateBTree(root); }
+private:
+	node * root;
+	void visit(node*T);
+	void preorder(node*T);
+	void inorder(node*T);
+	void postorder(node*T);
+	void CreateBTree(node *&T);
+};
+BTree::BTree() {
+	root = NULL;
+}
+void BTree::visit(node*T) {
+	cout << T->data << endl;
+}
+void BTree::inorder(node*T) {
+	if (T != NULL) {
+		inorder(T->lchild);
+		visit(T);
+		inorder(T->rchild);
+	}
+	else return;
+}
+void BTree::postorder(node*T) {
+	if (T != NULL) {
+		postorder(T->lchild);
+		postorder(T->rchild);
+		visit(T);
+	}
+	else return;
+}
+void BTree::preorder(node*T) {
+	if (T != NULL) {
+		visit(T);
+		preorder(T->lchild);
+		preorder(T->rchild);
+	}
+	else return;
+}
+void BTree::CreateBTree(node *&T) {
+	char ch;
+	cin >> ch;
+	if (ch == '#')
+		T = NULL;
+	else {
+		T = new node;
+		T->data = ch;
+		CreateBTree(T->lchild);
+		CreateBTree(T->rchild);
+	}
+}
+int main()
+{
+	BTree a, b;
+	a.CreateBTree();
+	a.preorder();
+	cout << endl;
+	a.inorder();
+	cout << endl;
+	a.postorder();
+	return 0;
+}
