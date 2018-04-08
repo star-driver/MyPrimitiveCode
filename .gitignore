@@ -1,32 +1,89 @@
-# Prerequisites
-*.d
+//超级的类
+#include "stdafx.h"
+#include "iostream"
+#include "cstring"
+#include "cstdio"
+#include "iomanip"
+#include "math.h"
+#include "cmath"
+using namespace std;
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
+class TIME
+{
+public:
+	TIME();
+	TIME(int, int, float);
+	void show_time(int);
+	~TIME()
+	{
+		cout << "OJBK" << endl;
+	}
+private:
+	int hour;
+	int minute;
+	float sec;
+};
+TIME::TIME()
+{
+	hour = 6;
+	minute = 6;
+	sec = 6;
+}
+TIME::TIME(int h, int m, float s) :hour(h), minute(m), sec(s) {}
+void TIME::show_time(int i)
+{
+	cout << "the time" << i << " is:" << hour << ":" << minute << ":" << sec << endl;
+}
+class TIME1 :public TIME
+{
+public:
+	TIME1();
+	void get_time();
+private:
+	int a, b, c;
+};
+TIME1::TIME1()
+{
+	a = 9;
+	b = 9;
+	c = 9;
+}
+void TIME1::get_time()
+{
+	cout << "被继承\n" <<"the inherited time is:"<< a << ":" << b << ":" << c << endl;
+}
+int main()
+{
+	int h1;
+	int m1;
+	float s1;
+	cout << "please cin three times :";
+ncin:
+	cin >> h1 >> m1 >> s1;
+	if (h1 > 24 || m1 > 59 || s1 >= 60) {
+		cout << "wrong times please cin new:";
+		goto ncin;
+	}
+	TIME tim[1] = {
+		TIME(h1,m1,s1)
+	};
+	tim[0].show_time(3);
+	TIME *pt;
+	TIME t1;
+	pt = &t1;
+	t1.show_time(1);
+	TIME t2(h1, m1, s1);
+	t2.show_time(2);
+	cout << "the t1's place is: " << &pt << endl;
+	TIME *p1 = &t1;
+	p1->show_time(4);
+	void(TIME:: *p2)(int);
+	p2 = &TIME::show_time;
+	(t1.*p2)(5);
+	TIME*p3 = new TIME(h1, m1, s1);
+	p3->show_time(6);
+	TIME1 t3;
+	t3.get_time();
+	delete p3;
+	return 0;
+}
