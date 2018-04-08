@@ -1,32 +1,120 @@
-# Prerequisites
-*.d
+//实验项目队列
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
 
-# Precompiled Headers
-*.gch
-*.pch
+#include "stdafx.h"
+#include "iostream"
+#include "string"
+using namespace std;
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+enum Error_code { success = 1, overflow = 0, underflow = 2, Range_error = 3 };
 
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
+class List 
+{
+public:
+	typedef struct node {
+		char data;
+		node * next;
+	}node;
+	List();
+	int length() const;
+	bool empty() const;
+	bool full() const;
+	Error_code insert(const int,const int);
+	Error_code insert1(int);
+	Error_code delete_element(const int);
+	Error_code enter_data();
+	int data[18];
+private:
+	int count;
+	int j;
+};
+List::List() {
+	count = 0;
+}
+int List::length() const
+{
+	return count;
+}
+bool List::empty() const
+{
+	if (count == 0)
+		return true;
+	return false;
+}
+bool List::full() const
+{
+	if ( count == 17)
+		return true;
+	return false;
+}
+Error_code List::enter_data()
+{
+	cout << "Now start enter" << endl;
+	for (j = 0; j < 18; j++)
+		cin >> data[j];
+	return success;
+}
+Error_code List::insert(const int i, const int x)
+{
+	if (full()) {
+		return overflow;
+	}
+	if (i<1 || i>length() + 1)
+		return Range_error;
+	for (j = count - 1; j >= i - 1; j--)
+		data[j + 1] = data[j];
+	data[i - 1] = x;
+	count=count+1;
+	return success;
+}
+Error_code List::delete_element (const int i)
+{
+	if (length() == 0)
+		return underflow;
+	if (i < 1 || i >= length())
+		return Range_error;
+	for ( j = i + 1; j <= length(); j++)
+		data[j - 2] = data[j - 1];
+	count--;
+	return success;
+}
+Error_code List::insert1(int x)
+{
+	int i = count - 1;
+	if (i >= 17)
+		return overflow;
+	while (i > 0 && data[i] > x)
+	{
+		data[i + 1] = data[i];
+		i--;
+	}
+	data[i + 1] = x;
+	count++;
+	return success;
+}              
+int main()
+{
+	int q;
+	List A;
+	A.enter_data();
+	for (q = 0; q < 18; q++)
+	{
+		if (A.data[q] == A.data[q + 1])
+			A.data[q] = NULL;
+		else continue;
+	}
+	for (q = 0; q < 18; q++)
+	{
+		if (A.data[q+1]!=NULL)
+		{
+			A.data[q] = A.data[q + 1];
+			A.data[q + 1] = NULL;
+			cout << A.data[q];
+		}
+		else {
+			if (A.data[q + 1] == NULL)
+				continue;
+		}
+	}
+	return 0;
+}
