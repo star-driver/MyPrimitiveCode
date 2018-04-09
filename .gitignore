@@ -1,32 +1,39 @@
-# Prerequisites
-*.d
+//魔镜啊魔镜，世界上最帅的人是谁呢？
+#include "stdafx.h"
+#include "iostream"
+#include "cstring"
+#include "cstdio"
+#include "iomanip"
+#include "math.h"
+#include "cmath"
+using namespace std;
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+int main()
+{
+	char a[21];
+	char b[37];
+	char c[18];
+	char d[10];
+	cout << "魔镜：你好，我是魔镜\n我：";
+	cin >> a;
+	if (a[21] = '\n')
+	{
+		cout << "魔镜：我又不是阿拉丁神灯。。。\n我：";
+		cin >> b;
+		if (b[37] = '\n')
+		{
+			cout << "魔镜：世界上最帅的男人就是啦啦啦了\n我：";
+			cin >> c;
+			if (c[18] = '\n')
+			{
+				cout << "魔镜：他？？他那么丑可比不上你\n我：";
+				cin >> d;
+				if (d[10] = '\n')
+				{
+					cout << "魔镜：哈哈哈\n";
+				}
+			}
+		}
+	}
 
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
+}
