@@ -1,4 +1,4 @@
-//实验项目队列AB之子集
+//实验项目顺序表AB之子集
 #include "stdafx.h"
 #include "iostream"
 #include "string"
