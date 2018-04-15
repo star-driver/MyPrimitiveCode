@@ -1,0 +1,126 @@
+//实验项目链表
+
+
+#include"stdafx.h"
+#include "iostream"
+#include "string"
+using namespace std;
+
+enum Error_code { success = 1, overflow = 0, underflow = 2, Range_error = 3 };
+
+class List
+{
+public:
+	typedef struct node {
+		int data;
+		node * next;
+	}node;
+	List();
+	int length() const;
+	bool empty() const;
+	bool full() const;
+	Error_code insert(const int, const int);
+	Error_code insert1(int);
+	Error_code delete_element(const int);
+	Error_code enter_data();
+	void output();
+	int oops[18];
+private:
+	node * top;
+	int count;
+	int j;
+};
+List::List() {
+	count = 0;
+	top = new node;
+	top->next = NULL;
+}
+int List::length() const
+{
+	return count;
+}
+bool List::empty() const
+{
+	if (count == 0) {
+		return true;
+	}
+	return false;
+}
+Error_code List::enter_data()
+{
+	node*p;
+	int x;
+	cout << "Now start enter" << endl;
+	cin >> x;
+	while (x != 0) {
+		count++;
+		p = new node;
+		p->data = x;
+		p->next = top->next;
+		top->next = p;
+		cin >> x;
+	}
+	return success;
+}
+Error_code List::insert(const int i, const int x)
+{
+	node*p =top;
+	j = 0;
+	while (j != i - 1 && p != NULL) {
+		p = p->next;
+		j++;
+	}
+	if (i<1 || i>length() + 1) {
+		return Range_error;
+	}
+	node*s = new node;
+	s->data = x;
+	s->next = p->next;
+	p->next = s;
+	count++;
+	return success;
+}
+Error_code List::delete_element(const int i)
+{
+	if (length() == 0)
+		return underflow;
+	if (i < 1 || i >= length())
+		return Range_error;
+	for (j = i + 1; j <= length(); j++)
+		oops[j - 2] = oops[j - 1];
+	count--;
+	return success;
+}
+Error_code List::insert1(int x)
+{
+	int i = count - 1;
+	if (i >= 17)
+		return overflow;
+	while (i > 0 && oops[i] > x)
+	{
+		oops[i + 1] = oops[i];
+		i--;
+	}
+	oops[i + 1] = x;
+	count++;
+	return success;
+}
+void List::output()
+{
+	node*o = new node;
+	o= top->next;
+	while (o!= NULL) {
+		cout << o->data << endl;
+		o = o->next;
+	}
+}
+int main()
+{
+	int i, x;
+	List A;
+	A.enter_data();
+	cin >> i >> x;
+	A.insert(i, x);
+	A.output();
+	return 0;
+}
