@@ -1,0 +1,96 @@
+#include"stdafx.h"
+#include<stdio.h>
+#include<time.h>
+#include<stdlib.h>
+#pragma warning(disable:4996);
+int input(int i);
+int pcinput(int t);
+int temp1, temp2, ta=0,tb=0,tc=0,td=0;
+int count;
+int pcinput(int t1)
+{
+	int step;
+	printf("电脑已经行走至:");
+	if (t1 % 3 == 2)
+	{
+		t1++;
+		printf("%d\n", t1);
+	}
+	else if (t1 % 3 == 1)
+	{
+		t1 = t1+2;
+		printf("%d\n", t1);
+	}
+	else
+	{
+		
+		step = 1 + rand() % 2;
+		t1 = step + t1;
+		printf("%d\n", t1);
+	}
+	return t1;
+}
+int  input(int t2)
+{
+		printf("请输入你要走的步数:\n");
+		scanf("%d", &count);
+		if (count < 1 || count>2 || t2 + count > 30)
+			printf("输入有错误\n");
+		else {
+			t2 = t2 + count; printf("你已经行走至%d\n", t2);
+		}
+	return t2;
+}
+int main()
+{
+	int n;
+	srand(time(NULL));
+	n = rand() % 100 + 1;
+	if (n % 2 == 0)
+	{
+		printf("请电脑先走一步\n");
+		do
+		{
+			ta = pcinput(ta);
+			temp1 = ta;
+			if (temp1 == 30)
+			{
+				
+				printf("真遗憾，你输了\n");
+				fflush(stdin);
+				tb = 0; temp1 = 0; temp2 = 0; fflush(stdin); goto repeat;
+			}
+			tb = input(tb);
+			temp2 = tb;
+			if (temp2 == 30)
+			{
+				printf("恭喜你，答对了\n"); fflush(stdin);
+				tb,ta = 0; temp1 = 0; temp2 = 0; fflush(stdin); goto repeat;
+			}
+		} while (temp1 < 31 || temp2 < 31);
+	}
+	else if(n % 2 == 1)
+	{
+		printf("请你先走一步\n");
+		do {
+			tc = input(tc);
+			temp2 = tc;
+			if (temp2 == 30)
+			{
+				printf("恭喜你，你赢了\n"); fflush(stdin);
+				tc = 0; temp1 = 0; temp2 = 0; fflush(stdin); goto repeat;
+			}
+
+			td = pcinput(td);
+			temp1 = td;
+			if (temp1 == 30)
+			{
+				printf("真遗憾，你输了\n"); fflush(stdin);
+				tc,td = 0; temp1 = 0; temp2 = 0; fflush(stdin); goto repeat;
+			}
+		}
+		while (temp1 < 31 || temp2 < 31);
+	}
+repeat:
+	return 0;
+}
