@@ -1,0 +1,58 @@
+#include"stdafx.h"
+#include "iostream"
+using namespace std;
+
+class Stack
+{
+public:
+	typedef struct node {
+		int data;
+		node*next;
+	}node;
+	Stack();
+	void push();
+	int pop(int & x);
+private:
+	int count;
+	node*p;
+};
+Stack::Stack()
+{
+	count = 0;
+	p = NULL;
+}
+void Stack::push()
+{
+	int n;
+	cin >> n;
+	while (n != 0) {
+		node*s = new node;
+		s->data = n;
+		s->next = p;
+		p = s;
+		count++;
+		cin >> n;
+	}
+}
+int Stack::pop(int & x)
+{
+	if (count == 0) {
+		cout << "wrong";
+		return 0;
+	}
+	x = p->data;
+	node*u = p;
+	p = p->next;
+	delete u;
+	count--;
+	cout << x;
+	return 1;
+}
+int main()
+{
+	int y;
+	Stack s;
+	s.push();
+	s.pop(y);
+	return 0;
+}
